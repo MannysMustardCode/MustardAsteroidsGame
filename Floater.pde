@@ -74,3 +74,44 @@ class Floater
     translate(-1*(float)myCenterX, -1*(float)myCenterY);
   }   
 } 
+
+abstract class Floater {
+  protected int corners; 
+  protected int[] xCorners, yCorners;
+  protected int myColor;
+  protected double myCenterX, myCenterY, myXspeed, myYspeed, myPointDirection;
+
+  public void accelerate(double amount) {
+    double radians = myPointDirection * (Math.PI / 180);
+    myXspeed += amount * Math.cos(radians);
+    myYspeed += amount * Math.sin(radians);
+  }
+
+  public void turn(double degrees) {
+    myPointDirection += degrees;
+  }
+
+  public void move() {
+    myCenterX += myXspeed;
+    myCenterY += myYspeed;
+
+    if (myCenterX > width) myCenterX = 0;
+    if (myCenterX < 0) myCenterX = width;
+    if (myCenterY > height) myCenterY = 0;
+    if (myCenterY < 0) myCenterY = height;
+  }
+
+  public void show() {
+    fill(myColor);
+    stroke(myColor);
+    double radians = myPointDirection * (Math.PI / 180);
+
+    beginShape();
+    for (int i = 0; i < corners; i++) {
+      double xrot = xCorners[i] * Math.cos(radians) - yCorners[i] * Math.sin(radians);
+      double yrot = xCorners[i] * Math.sin(radians) + yCorners[i] * Math.cos(radians);
+      vertex((float)(myCenterX + xrot), (float)(myCenterY + yrot));
+    }
+    endShape(CLOSE);
+  }
+}
