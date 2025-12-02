@@ -40,6 +40,46 @@ void keyPressed()
   if (key == 'w' || key == 'W')
     ship.accelerate(0.2);
 
-  if (key == 's' || key == 'S')
-    ship.hyperspace();
+Spaceship ship;
+ArrayList<Asteroid> asteroids;
+
+void setup() {
+  size(800, 800);
+  ship = new Spaceship();
+
+  asteroids = new ArrayList<Asteroid>();
+  for (int i = 0; i < 5; i++)
+    asteroids.add(new Asteroid());
 }
+
+void draw() {
+  background(0);
+
+  // Move and show ship
+  ship.move();
+  ship.show();
+
+  // Asteroids
+  for (int i = asteroids.size() - 1; i >= 0; i--) {
+    Asteroid a = asteroids.get(i);
+
+    float d = dist((float)a.getX(), (float)a.getY(), 
+                   (float)ship.getX(), (float)ship.getY());
+
+    if (d < 30) {  // remove asteroid on impact
+      asteroids.remove(i);
+    } else {
+      a.move();
+      a.show();
+    }
+  }
+}
+
+void keyPressed() {
+  if (key == 'w') ship.accelerate(0.1);
+  if (key == 's') ship.accelerate(-0.1);
+  if (key == 'a') ship.turn(-5);
+  if (key == 'd') ship.turn(5);
+}
+
+
