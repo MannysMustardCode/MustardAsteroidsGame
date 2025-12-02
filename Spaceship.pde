@@ -28,3 +28,22 @@ class Spaceship extends Floater
     myPointDirection = Math.random() * 360;
   }
 }
+
+
+class Spaceship extends Floater {
+
+  Spaceship() {
+    corners = 3;
+    xCorners = new int[]{-10, 10, -10};
+    yCorners = new int[]{-10, 0, 10};
+    myColor = color(0, 255, 255);
+    myCenterX = width / 2;
+    myCenterY = height / 2;
+    myXspeed = 0;
+    myYspeed = 0;
+    myPointDirection = 0;
+  }
+
+  public double getX() { return myCenterX; }
+  public double getY() { return myCenterY; }
+}
