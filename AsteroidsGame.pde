@@ -18,13 +18,13 @@ public void draw()
 {
   background(0);
 
-  // Show stars
+ 
   for (int i = 0; i < stars.length; i++)
   {
     stars[i].show();
   }
 
-  // Show & move ship
+ 
   ship.show();
   ship.move();
 }
@@ -43,7 +43,7 @@ void keyPressed()
 Spaceship ship;
 ArrayList<Asteroid> asteroids;
 
-void setup() {
+setup();
   size(800, 800);
   ship = new Spaceship();
 
@@ -55,18 +55,17 @@ void setup() {
 void draw() {
   background(0);
 
-  // Move and show ship
+  
   ship.move();
   ship.show();
 
-  // Asteroids
   for (int i = asteroids.size() - 1; i >= 0; i--) {
     Asteroid a = asteroids.get(i);
 
     float d = dist((float)a.getX(), (float)a.getY(), 
                    (float)ship.getX(), (float)ship.getY());
 
-    if (d < 30) {  // remove asteroid on impact
+    if (d < 30) {  
       asteroids.remove(i);
     } else {
       a.move();
@@ -81,5 +80,3 @@ void keyPressed() {
   if (key == 'a') ship.turn(-5);
   if (key == 'd') ship.turn(5);
 }
-
-
